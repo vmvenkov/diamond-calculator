@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Diamond Price Estimator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      background-color: #fdfdfd;
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    select, input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #aaa;
+    }
+    #price {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      text-align: center;
+      color: #006600;
+    }
+  </style>
+</head>
+<body>
+  <h2>Diamond Price Estimator</h2>
+  <form id="diamondForm">
+    <label for="carat">Carat Weight:</label>
+    <input type="number" id="carat" name="carat" min="0.01" step="0.01" value="1.00" required>
+
+    <label for="shape">Shape:</label>
+    <select id="shape" name="shape">
+      <option value="Round">Round</option>
+      <option value="Princess">Princess</option>
+      <option value="Emerald">Emerald</option>
+    </select>
+
+    <label for="color">Color Grade:</label>
+    <select id="color" name="color">
+      <option value="D">D</option>
+      <option value="E">E</option>
+      <option value="F">F</option>
+    </select>
+
+    <label for="clarity">Clarity Grade:</label>
+    <select id="clarity" name="clarity">
+      <option value="IF">IF</option>
+      <option value="VVS1">VVS1</option>
+      <option value="VVS2">VVS2</option>
+    </select>
+
+    <div id="price">Estimated Price: $0.00</div>
+  </form>
+
+  <script>
+    const priceTable = {
+      "Round": {
+        "D": { "IF": 8000, "VVS1": 7500, "VVS2": 7000 },
+        "E": { "IF": 7800, "VVS1": 7300, "VVS2": 6800 },
+        "F": { "IF": 7600, "VVS1": 7100, "VVS2": 6600 }
+      },
+      "Princess": {
+        "D": { "IF": 7500, "VVS1": 7000, "VVS2": 6500 },
+        "E": { "IF": 7300, "VVS1": 6800, "VVS2": 6300 },
+        "F": { "IF": 7100, "VVS1": 6600, "VVS2": 6100 }
+      },
+      "Emerald": {
+        "D": { "IF": 7000, "VVS1": 6500, "VVS2": 6000 },
+        "E": { "IF": 6800, "VVS1": 6300, "VVS2": 5800 },
+        "F": { "IF": 6600, "VVS1": 6100, "VVS2": 5600 }
+      }
+    };
+
+    function calculatePrice() {
+      const carat = parseFloat(document.getElementById('carat').value);
+      const shape = document.getElementById('shape').value;
+      const color = document.getElementById('color').value;
+      const clarity = document.getElementById('clarity').value;
+
+      const basePrice = priceTable[shape][color][clarity];
+      const totalPrice = basePrice * carat;
+
+      document.getElementById('price').textContent =
+        `Estimated Price: $${totalPrice.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        })}`;
+    }
+
+    document.getElementById('diamondForm').addEventListener('input', calculatePrice);
+    calculatePrice();
+  </script>
+</body>
+</html>
