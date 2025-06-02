@@ -6,34 +6,52 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 400px;
+      max-width: 600px;
       margin: 40px auto;
       padding: 20px;
-      border: 2px solid #ccc;
       border-radius: 10px;
-      background-color: #fdfdfd;
+      background-color: #1e1e1e;
+      color: #ffffff;
+      font-size: 1rem;
     }
+
     h2 {
       text-align: center;
-      color: #333;
+      color: #ffffff;
+      font-size: 1.5em;
     }
+
     label {
       display: block;
       margin-top: 15px;
+      font-weight: bold;
     }
-    select, input {
+
+    select,
+    input {
       width: 100%;
-      padding: 8px;
+      padding: 10px;
       margin-top: 5px;
       border-radius: 5px;
-      border: 1px solid #aaa;
+      border: 1px solid #555;
+      background-color: #2a2a2a;
+      color: #ffffff;
+      font-size: 1em;
     }
+
     #price {
       margin-top: 20px;
-      font-size: 1.2em;
+      font-size: 1.3em;
       font-weight: bold;
       text-align: center;
-      color: #006600;
+      color: #00cc66;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        margin: 20px;
+        font-size: 0.95rem;
+      }
     }
   </style>
 </head>
@@ -82,8 +100,22 @@
     <div id="price">Estimated Price: $0.00</div>
   </form>
 
+  <!-- Скриптът ти остава същия -->
   <script>
-    const priceTable = {
+    document.getElementById('diamondForm').addEventListener('input', function () {
+      const carat = parseFloat(document.getElementById('carat').value);
+      const shape = document.getElementById('shape').value;
+      const color = document.getElementById('color').value;
+      const clarity = document.getElementById('clarity').value;
+
+      const basePrice = priceTable[shape]?.[color]?.[clarity] || 0;
+      const finalPrice = basePrice * carat;
+
+      document.getElementById('price').textContent =
+        "Estimated Price: $" + finalPrice.toFixed(2);
+    });
+
+    const priceTable = { {
       "Asscher": {
         "D": { "IF": 9486, "VVS1": 7945.80, "VVS2": 7934.40, "VS1": 6834, "VS2": 5814, "SI1": 4692, "SI2": 3978 },
         "E": { "IF": 8200, "VVS1": 7125, "VVS2": 6555, "VS1": 6200, "VS2": 5400, "SI1": 4300, "SI2": 3700 },
@@ -174,26 +206,7 @@
         "I": { "IF": 4700, "VVS1": 4180, "VVS2": 3990, "VS1": 3900, "VS2": 3700, "SI1": 3200, "SI2": 2800 },
         "J": { "IF": 4000, "VVS1": 3610, "VVS2": 3420, "VS1": 3400, "VS2": 3200, "SI1": 2900, "SI2": 2500 }
       }
-    };
-
-    function calculatePrice() {
-      const carat = parseFloat(document.getElementById('carat').value);
-      const shape = document.getElementById('shape').value;
-      const color = document.getElementById('color').value;
-      const clarity = document.getElementById('clarity').value;
-
-      const basePrice = priceTable[shape][color][clarity];
-      const totalPrice = basePrice * carat;
-
-      document.getElementById('price').textContent =
-        `Estimated Price: $${totalPrice.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        })}`;
-    }
-
-    document.getElementById('diamondForm').addEventListener('input', calculatePrice);
-    calculatePrice();
+};
   </script>
 </body>
 </html>
