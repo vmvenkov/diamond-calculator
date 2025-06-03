@@ -1,104 +1,131 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Diamond Price Estimator</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: Arial, sans-serif;
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      border-radius: 10px;
+      margin: 0;
+      padding: 1rem;
       background-color: #1e1e1e;
       color: #ffffff;
-      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .calculator {
+      background-color: #2a2a2a;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     h2 {
       text-align: center;
-      color: #ffffff;
-      font-size: 1.5em;
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .form-group {
+      flex: 1 1 calc(50% - 0.5rem);
+      display: flex;
+      flex-direction: column;
     }
 
     label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
+      margin-bottom: 0.3rem;
+      font-size: 0.95rem;
     }
 
-    select,
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
+    input, select {
+      padding: 0.4rem;
       border-radius: 5px;
-      border: 1px solid #555;
-      background-color: #2a2a2a;
-      color: #ffffff;
-      font-size: 1em;
+      border: 1px solid #444;
+      background-color: #1e1e1e;
+      color: white;
+      font-size: 1rem;
     }
 
     #price {
-      margin-top: 20px;
-      font-size: 1.3em;
-      font-weight: bold;
       text-align: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin-top: 1rem;
       color: #00cc66;
+      flex: 1 1 100%;
     }
 
-    @media (max-width: 600px) {
-      body {
-        margin: 20px;
-        font-size: 0.95rem;
+    @media (max-width: 480px) {
+      .form-group {
+        flex: 1 1 100%;
       }
     }
   </style>
 </head>
 <body>
-  <h2>Diamond Price Estimator</h2>
-  <form id="diamondForm">
-    <label for="carat">Carat Weight:</label>
-    <input type="number" id="carat" name="carat" min="0.01" step="0.01" value="1.00" required>
-
-    <label for="shape">Shape:</label>
-    <select id="shape" name="shape">
-      <option value="Asscher">Asscher</option>
-      <option value="Cushion">Cushion</option>
-      <option value="Emerald">Emerald</option>
-      <option value="Heart">Heart</option>
-      <option value="Marquise">Marquise</option>
-      <option value="Oval">Oval</option>
-      <option value="Pear">Pear</option>
-      <option value="Round">Round</option>
-      <option value="Princess">Princess</option>
-      <option value="Radiant">Radiant</option>
-    </select>
-
-    <label for="color">Color Grade:</label>
-    <select id="color" name="color">
-      <option value="D">D</option>
-      <option value="E">E</option>
-      <option value="F">F</option>
-      <option value="G">G</option>
-      <option value="H">H</option>
-      <option value="I">I</option>
-      <option value="J">J</option>
-    </select>
-
-    <label for="clarity">Clarity Grade:</label>
-    <select id="clarity" name="clarity">
-      <option value="IF">IF</option>
-      <option value="VVS1">VVS1</option>
-      <option value="VVS2">VVS2</option>
-      <option value="VS1">VS1</option>
-      <option value="VS2">VS2</option>
-      <option value="SI1">SI1</option>
-      <option value="SI2">SI2</option>
-    </select>
-
-    <div id="price">Estimated Price: $0.00</div>
-  </form>
+  <div class="calculator">
+    <h2>Diamond Price Estimator</h2>
+    <form id="diamondForm">
+      <div class="form-group">
+        <label for="carat">Carat Weight:</label>
+        <input type="number" id="carat" min="0.01" step="0.01" value="1.00" required>
+      </div>
+      <div class="form-group">
+        <label for="shape">Shape:</label>
+        <select id="shape">
+          <option value="Asscher">Asscher</option>
+          <option value="Cushion">Cushion</option>
+          <option value="Emerald">Emerald</option>
+          <option value="Heart">Heart</option>
+          <option value="Marquise">Marquise</option>
+          <option value="Oval">Oval</option>
+          <option value="Pear">Pear</option>
+          <option value="Round">Round</option>
+          <option value="Princess">Princess</option>
+          <option value="Radiant">Radiant</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="color">Color Grade:</label>
+        <select id="color">
+          <option value="D">D</option>
+          <option value="E">E</option>
+          <option value="F">F</option>
+          <option value="G">G</option>
+          <option value="H">H</option>
+          <option value="I">I</option>
+          <option value="J">J</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="clarity">Clarity Grade:</label>
+        <select id="clarity">
+          <option value="IF">IF</option>
+          <option value="VVS1">VVS1</option>
+          <option value="VVS2">VVS2</option>
+          <option value="VS1">VS1</option>
+          <option value="VS2">VS2</option>
+          <option value="SI1">SI1</option>
+          <option value="SI2">SI2</option>
+        </select>
+      </div>
+      <div id="price">Estimated Price: $0.00</div>
+    </form>
+  </div>
 
   <script>
     const priceTable = {
@@ -208,8 +235,6 @@
     }
 
     document.getElementById('diamondForm').addEventListener('input', calculatePrice);
-
-    // Инициално изчисление
     calculatePrice();
   </script>
 </body>
